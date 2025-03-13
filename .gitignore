@@ -1,0 +1,6 @@
+
+dist/
+*.local
+
+# IDEs
+.vscode/
