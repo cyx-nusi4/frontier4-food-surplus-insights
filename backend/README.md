@@ -1,15 +1,15 @@
 # Backend README
 
-# My Web App - Backend
+# Food Surplus Insights System - Backend
 
-This is the backend part of the My Web App project, built using Python and Flask.
+This is the backend part of the Food Surplus Insights project, built using Python and Flask.
 
 ## Setup Instructions
 
 1. **Clone the repository:**
    ```
-   git clone <repository-url>
-   cd my-web-app/backend
+   git clone 
+   cd food-surplus-insights/backend
    ```
 
 2. **Create a virtual environment (optional but recommended):**
@@ -25,17 +25,18 @@ This is the backend part of the My Web App project, built using Python and Flask
 
 4. **Run the application:**
    ```
-   python app.py
+   python run.py
    ```
 
 ## Usage
 
-Once the application is running, you can access the API at `http://localhost:5000`. 
+Once the application is running, the API is at `http://localhost:5002. 
 
 ## API Endpoints
 
-- **GET /api/example**: Description of what this endpoint does.
-- **POST /api/example**: Description of what this endpoint does.
+- \*\*GET /requests\*\*: Returns the total number of requests by area.
+- \*\*GET /weights\*\*: Returns the total weight by area.
+- \*\*GET /heatmap\*\*: Generates a heatmap of weights by area within a specified date range.
 
 ## Contributing
 

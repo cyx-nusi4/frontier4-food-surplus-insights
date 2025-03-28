@@ -4,3 +4,23 @@ dist/
 
 # IDEs
 .vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment variables
+.env
+
+# Node.js
+node_modules/
+
+# Python
+__pycache__/
+env/
+venv/
+ENV/
+.venv/
+venv.bak/
+
+# backend
+backend/data
