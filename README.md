@@ -1,26 +1,15 @@
-# My Web Application
+# Food Surplus Insights Application
 
-This project is a web application that consists of a frontend built with Vue.js and a backend powered by Python Flask.
+This project visualize food surplus collection data and forecast future demands. This is a web application that consists of a frontend built with Vue.js and a backend powered by Python Flask.
 
 ## Project Structure
 
 ```
-my-web-app
+food-surplus-insights
 ├── backend
-│   ├── app.py
-│   ├── requirements.txt
-│   └── README.md
-├── frontend
-│   ├── src
-│   │   ├── main.js
-│   │   ├── App.vue
-│   │   └── components
-│   │       └── HelloWorld.vue
-│   ├── public
-│   │   └── index.html
-│   ├── package.json
-│   ├── vue.config.js
-│   └── README.md
+
+├── dashboard
+
 └── README.md
 ```
 
@@ -29,41 +18,7 @@ my-web-app
 ### Prerequisites
 
 - Python 3.x
-- Node.js and npm
-
-### Backend Setup
-
-1. Navigate to the `backend` directory:
-   ```
-   cd backend
-   ```
-
-2. Install the required Python packages:
-   ```
-   pip install -r requirements.txt
-   ```
-
-3. Run the Flask application:
-   ```
-   python app.py
-   ```
-
-### Frontend Setup
-
-1. Navigate to the `frontend` directory:
-   ```
-   cd frontend
-   ```
-
-2. Install the required Node.js packages:
-   ```
-   npm install
-   ```
-
-3. Start the Vue.js application:
-   ```
-   npm run serve
-   ```
+- Node.js
 
 ## Usage
 
