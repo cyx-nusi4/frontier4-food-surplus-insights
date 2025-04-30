@@ -18,3 +18,20 @@ def get_weights_by_area():
     weight_points = [{"x": area, "y": value} for area, value in
                     sorted(area_weight.items(), key=lambda item: item[1], reverse=True)]
     return jsonify({"points": weight_points})
+
+@statistics_bp.route('/dss/requests', methods=['GET'])
+def get_requests_by_dss():
+    df = data_loader.get_data()
+    dss_requests = df.groupby("DSS")["Requests"].sum()
+    request_points = [{"x": dss, "y": value} for dss, value in
+                      sorted(dss_requests.items(), key=lambda item: item[1], reverse=True)]
+    return jsonify({"points": request_points})
+
+
+@statistics_bp.route('/dss/weights', methods=['GET'])
+def get_weights_by_dss():
+    df = data_loader.get_data()
+    dss_weights = df.groupby("DSS")["Weight"].sum()
+    weight_points = [{"x": dss, "y": value} for dss, value in
+                     sorted(dss_weights.items(), key=lambda item: item[1], reverse=True)]
+    return jsonify({"points": weight_points})
