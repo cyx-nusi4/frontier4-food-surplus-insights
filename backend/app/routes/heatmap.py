@@ -53,9 +53,9 @@ def generate_heatmap():
 
     return jsonify({"heat_data": heat_data})
 
-#select top50 DSS with wight and use their weight show on the map
-@heatmap_bp.route('/dss/heatmap/weight', methods=['GET'])
-def generate_dss_weight_heatmap():
+#count dss number in each area
+@heatmap_bp.route('/dss/heatmap/count', methods=['GET'])
+def generate_dss_count_heatmap():
     start_date_str = request.args.get('startDate', '2024-01-01')
     end_date_str = request.args.get('endDate', '2024-12-31')
 
@@ -71,64 +71,21 @@ def generate_dss_weight_heatmap():
     if df_filtered.empty:
         return jsonify({"error": "No data available for the selected date range"}), 400
 
- 
-    dss_weight_agg = (
-        df_filtered.groupby(['DSS', 'Area'])['Weight']
-        .sum()
+
+    dss_counts = (
+        df_filtered.groupby('Area')['DSS']
+        .nunique()
         .reset_index()
-        .sort_values(by='Weight', ascending=False)
-        .head(50)
+        .rename(columns={'DSS': 'DSS_Count'})
     )
 
+    dss_counts['Latitude'] = dss_counts['Area'].map(lambda x: AREA_LOCATIONS.get(x, (None, None))[0])
+    dss_counts['Longitude'] = dss_counts['Area'].map(lambda x: AREA_LOCATIONS.get(x, (None, None))[1])
+    df_cleaned = dss_counts.dropna(subset=['Latitude', 'Longitude'])
 
-    dss_weight_agg['Latitude'] = dss_weight_agg['Area'].map(lambda x: AREA_LOCATIONS.get(x, (None, None))[0])
-    dss_weight_agg['Longitude'] = dss_weight_agg['Area'].map(lambda x: AREA_LOCATIONS.get(x, (None, None))[1])
-
-    df_cleaned = dss_weight_agg.dropna(subset=['Latitude', 'Longitude'])
 
     heat_data = [
-        [row['Latitude'], row['Longitude'], row['Weight']]
-        for _, row in df_cleaned.iterrows()
-    ]
-
-    return jsonify({"heat_data": heat_data})
-
-#select top50 DSS with request and use their request show on the map
-@heatmap_bp.route('/dss/heatmap/requests', methods=['GET'])
-def generate_dss_requests_heatmap():
-    start_date_str = request.args.get('startDate', '2024-01-01')
-    end_date_str = request.args.get('endDate', '2024-12-31')
-
-    try:
-        start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
-        end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
-    except ValueError:
-        return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
-
-    df = data_loader.get_data()
-
-
-    df_filtered = df[(df['Date'] >= start_date) & (df['Date'] <= end_date)]
-    if df_filtered.empty:
-        return jsonify({"error": "No data available for the selected date range"}), 400
-
-
-    dss_requests_agg = (
-        df_filtered.groupby(['DSS', 'Area'])['Requests']
-        .sum()
-        .reset_index()
-        .sort_values(by='Requests', ascending=False)
-        .head(50)
-    )
-
-  
-    dss_requests_agg['Latitude'] = dss_requests_agg['Area'].map(lambda x: AREA_LOCATIONS.get(x, (None, None))[0])
-    dss_requests_agg['Longitude'] = dss_requests_agg['Area'].map(lambda x: AREA_LOCATIONS.get(x, (None, None))[1])
-
-    df_cleaned = dss_requests_agg.dropna(subset=['Latitude', 'Longitude'])
-
-    heat_data = [
-        [row['Latitude'], row['Longitude'], row['Requests']]
+        [row['Latitude'], row['Longitude'], row['DSS_Count']]
         for _, row in df_cleaned.iterrows()
     ]
 
