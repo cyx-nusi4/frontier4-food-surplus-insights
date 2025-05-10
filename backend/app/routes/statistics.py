@@ -35,3 +35,15 @@ def get_weights_by_dss():
     weight_points = [{"x": dss, "y": value} for dss, value in
                      sorted(dss_weights.items(), key=lambda item: item[1], reverse=True)]
     return jsonify({"points": weight_points})
+
+@statistics_bp.route('/dss/saturation', methods=['GET'])
+def get_dss_saturation():
+    df = data_loader.get_data()
+    all_dss = df["DSS"].unique()
+    area_dss_counts = (
+        df.groupby("Area")["DSS"]
+        .nunique()
+        .sort_values(ascending=False)
+    )
+    saturation_points = [{"x": area, "y": int(value)} for area, value in area_dss_counts.items()]
+    return jsonify({"points": saturation_points})
