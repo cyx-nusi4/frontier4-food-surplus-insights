@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request
 from datetime import datetime
+
+from flask import Blueprint, jsonify, request
+
 from app.extensions import data_loader
-import pandas as pd
 
 heatmap_bp = Blueprint('heatmap', __name__)
 
@@ -26,7 +27,7 @@ AREA_LOCATIONS = {
 }
 
 
-@heatmap_bp.route('/heatmap', methods=['GET'])
+@heatmap_bp.route('/food/weight/heatmap', methods=['GET'])
 def generate_heatmap():
     start_date_str = request.args.get('startDate', '2024-01-01')
     end_date_str = request.args.get('endDate', '2024-12-31')
@@ -54,7 +55,7 @@ def generate_heatmap():
     return jsonify({"heat_data": heat_data})
 
 #select top50 DSS with wight and use their weight show on the map
-@heatmap_bp.route('/dss/heatmap/weight', methods=['GET'])
+@heatmap_bp.route('/dss/weight/heatmap', methods=['GET'])
 def generate_dss_weight_heatmap():
     start_date_str = request.args.get('startDate', '2024-01-01')
     end_date_str = request.args.get('endDate', '2024-12-31')
@@ -94,7 +95,7 @@ def generate_dss_weight_heatmap():
     return jsonify({"heat_data": heat_data})
 
 #select top50 DSS with request and use their request show on the map
-@heatmap_bp.route('/dss/heatmap/requests', methods=['GET'])
+@heatmap_bp.route('/dss/requests/heatmap', methods=['GET'])
 def generate_dss_requests_heatmap():
     start_date_str = request.args.get('startDate', '2024-01-01')
     end_date_str = request.args.get('endDate', '2024-12-31')

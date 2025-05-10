@@ -64,7 +64,7 @@
     methods: {
       async fetchData() {
         try {
-          const response = await fetch('/api/requests')
+          const response = await fetch('/api/food/requests')
           const data = await response.json()
           
           // Process the data

@@ -3,7 +3,8 @@ from app.extensions import data_loader
 
 statistics_bp = Blueprint('statistics', __name__)
 
-@statistics_bp.route('/requests', methods=['GET'])
+# TODO add date range search
+@statistics_bp.route('/food/requests', methods=['GET'])
 def get_requests_by_area():
     df = data_loader.get_data()
     area_requests = df.groupby("Area")["Requests"].sum()
@@ -11,7 +12,7 @@ def get_requests_by_area():
                       sorted(area_requests.items(), key=lambda item: item[1], reverse=True)]
     return jsonify({"points": requests_points})
 
-@statistics_bp.route('/weights', methods=['GET'])
+@statistics_bp.route('/food/weight', methods=['GET'])
 def get_weights_by_area():
     df = data_loader.get_data()
     area_weight = df.groupby("Area")["Weight"].sum()
@@ -28,7 +29,7 @@ def get_requests_by_dss():
     return jsonify({"points": request_points})
 
 
-@statistics_bp.route('/dss/weights', methods=['GET'])
+@statistics_bp.route('/dss/weight', methods=['GET'])
 def get_weights_by_dss():
     df = data_loader.get_data()
     dss_weights = df.groupby("DSS")["Weight"].sum()
