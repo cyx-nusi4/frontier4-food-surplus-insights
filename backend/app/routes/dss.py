@@ -78,11 +78,11 @@ def dss_request_distribution():
 
     data = [{"dss": dss, "requests": int(requests)} for dss, requests in top_dss.items()]
     return jsonify({"data": data})
-""" DSS区域数量分布 """
+    
+""" DSS区域数量分布（唯一 DSS 计数） """
 @dss_bp.route('/area/dss-distribution', methods=['GET'])
 def area_dss_distribution():
     df = data_loader.get_data()
-
     try:
         df = filter_dataframe(
             df,
@@ -93,8 +93,11 @@ def area_dss_distribution():
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
 
+    # 去重
+    df_unique = df.drop_duplicates(subset=["Area", "DSS"])
+    # 统计唯一 DSS 的数量
     area_counts = (
-        df["Area"]
+        df_unique["Area"]
         .value_counts()
         .sort_values(ascending=False)
         .head(MAX_AREAS)
@@ -102,6 +105,8 @@ def area_dss_distribution():
 
     data = [{"area": area, "count": int(count)} for area, count in area_counts.items()]
     return jsonify({"data": data})
+
+
 """ DSS时间分布 """
 @dss_bp.route('/dss/time-trend', methods=['GET'])
 def dss_time_trend():
