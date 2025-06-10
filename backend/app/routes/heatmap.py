@@ -26,7 +26,7 @@ AREA_LOCATIONS = {
 }
 
 
-@heatmap_bp.route('/heatmap', methods=['GET'])
+@heatmap_bp.route('/food/weight/heatmap', methods=['GET'])
 def generate_heatmap():
     start_date_str = request.args.get('startDate', '2024-01-01')
     end_date_str = request.args.get('endDate', '2024-12-31')
@@ -54,7 +54,7 @@ def generate_heatmap():
     return jsonify({"heat_data": heat_data})
 
 #count dss number in each area
-@heatmap_bp.route('/dss/heatmap/count', methods=['GET'])
+@heatmap_bp.route('/dss/count/heatmap', methods=['GET'])
 def generate_dss_count_heatmap():
     start_date_str = request.args.get('startDate', '2024-01-01')
     end_date_str = request.args.get('endDate', '2024-12-31')

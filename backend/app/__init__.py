@@ -3,6 +3,7 @@ from .extensions import data_loader, predictor
 from .routes.forecast import forecast_bp
 from .routes.heatmap import heatmap_bp
 from .routes.statistics import statistics_bp
+from .routes.dss import dss_bp
 
 
 def create_app():
@@ -17,5 +18,6 @@ def create_app():
     app.register_blueprint(forecast_bp)
     app.register_blueprint(heatmap_bp)
     app.register_blueprint(statistics_bp)
+    app.register_blueprint(dss_bp)
 
     return app

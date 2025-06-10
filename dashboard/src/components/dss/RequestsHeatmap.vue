@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 style="text-align: center;">DSS Collection by Requests</h2>
+        <h2 style="text-align: center;">Active DSS Heatmap</h2>
         <div id="map"></div>
         <div v-if="loading" class="loading-message">Loading heatmap data...</div>
         <div v-if="error" class="error-message">Error loading heatmap: {{ error }}</div>
@@ -67,7 +67,7 @@ export default {
             
             try {
                 this.loading = true;
-                const response = await axios.get('/api/dss/requests/heatmap');
+                const response = await axios.get('/api/dss/count/heatmap');
                 const rawData = response.data.heat_data;
                 
                 // Transform API data to Google Maps format
