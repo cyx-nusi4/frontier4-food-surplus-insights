@@ -9,6 +9,8 @@ services:
       - ./backend:/app
     ports:
       - "5002:5002"
+    networks:
+      - dashboard-network
     environment:
       - FLASK_ENV=development
     restart: unless-stopped
@@ -20,6 +22,12 @@ services:
 
     ports:
       - "80:80"
+    networks:
+      - dashboard-network
     depends_on:
       - backend
     restart: unless-stopped
+
+networks:
+  dashboard-network:
+    driver: bridge
