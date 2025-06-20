@@ -21,7 +21,7 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const loaded = ref(false);
-const duration = ref(30);
+// const duration = ref(30);
 const chartData = ref({
     labels: [],
     datasets: [{
@@ -37,10 +37,7 @@ const chartOptions = ref({
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-        title: {
-            display: true,
-            text: `DSS in service`
-        }
+
     },
     scales: {
         y: {
@@ -67,9 +64,6 @@ const fetchData = async () => {
         
         chartData.value.labels = forecastData.data.map(item => item.date);
         chartData.value.datasets[0].data = forecastData.data.map(item => item.count);
-        
-        // Update chart title with current duration
-        chartOptions.value.plugins.title.text = `Forecast for Next ${duration.value} Days`;
         
         loaded.value = true;
     } catch (error) {

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2 style="text-align: center;">Top 10 DSS by Food Weight</h2>
+  <div class="weight-chart">
+    <h2>Top 10 DSS by Food Weight</h2>
     <ul v-if="loaded">
       <li v-for="(item, index) in limitedData" :key="index">
         {{ item.x }}: {{ item.y }}
@@ -43,3 +43,25 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.weight-chart {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+.weight-chart h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.weight-chart ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+  text-align: left;
+}
+.weight-chart li {
+  font-size: 14px;
+}
+</style>

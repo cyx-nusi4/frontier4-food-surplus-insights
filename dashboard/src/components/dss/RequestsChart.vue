@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2 style="text-align: center;">Top 10 DSS by Requests</h2>
+  <div class="requests-chart">
+    <h2>Top 10 DSS by Requests</h2>
     <ul v-if="loaded">
       <li v-for="(item, index) in limitedData" :key="index">
         {{ item.x }}: {{ item.y }}
@@ -43,3 +43,25 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.requests-chart {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+.requests-chart h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.requests-chart ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+  text-align: left;
+}
+.requests-chart li {
+  font-size: 14px;
+}
+</style>
